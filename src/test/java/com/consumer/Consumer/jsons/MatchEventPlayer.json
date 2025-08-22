@@ -1,0 +1,21 @@
+{
+  "matchId": "match789",
+  "eventId": "evt456",
+  "timestamp": "2025-08-22T19:05:00Z",
+  "minute": 75,
+  "eventType": "red_card",
+  "team": {
+    "id": "team123",
+    "name": "Manchester United"
+  },
+  "player": {
+    "id": "player789",
+    "name": "Chris Smalling",
+    "position": "Defender"
+  },
+  "description": "Red card issued to Chris Smalling for a dangerous tackle",
+  "additionalInfo": {
+    "substitutionFor": "player456",
+    "substitutionType": "in"
+  }
+}

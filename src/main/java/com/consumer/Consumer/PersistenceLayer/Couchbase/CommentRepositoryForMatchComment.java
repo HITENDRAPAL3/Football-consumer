@@ -7,5 +7,5 @@ import org.springframework.data.couchbase.repository.CouchbaseRepository;
 
 @N1qlPrimaryIndexed
 @ViewIndexed(designDoc = "matchComments", viewName = "all")
-public interface CommentRepository extends CouchbaseRepository<MatchCommentJPA, Integer> {
+public interface CommentRepositoryForMatchComment extends CouchbaseRepository<MatchCommentJPA, Integer> {
 }

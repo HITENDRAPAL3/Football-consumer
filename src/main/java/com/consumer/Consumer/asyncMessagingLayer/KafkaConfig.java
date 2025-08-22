@@ -1,6 +1,7 @@
 package com.consumer.Consumer.asyncMessagingLayer;
 
 import com.consumer.Consumer.DomainLayer.DTO.MatchCommentDTOs.MatchCommentDTO;
+import com.consumer.Consumer.DomainLayer.DTO.MatchEventPlayerDTOs.MatchEventPlayerDTO;
 import com.consumer.Consumer.common.AppConstants;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class KafkaConfig {
 
     @Bean
-    public ConsumerFactory<String, MatchCommentDTO> consumerFactory() {
+    public ConsumerFactory<String, MatchCommentDTO> consumerFactoryForMatchComments() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configProps.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.groupId);
@@ -33,9 +34,31 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, MatchCommentDTO> kafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, MatchCommentDTO> kafkaListenerContainerFactoryForMatchComments() {
         ConcurrentKafkaListenerContainerFactory<String, MatchCommentDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
+        factory.setConsumerFactory(consumerFactoryForMatchComments());
+        return factory;
+    }
+
+    @Bean
+    public ConsumerFactory<String, MatchEventPlayerDTO> consumerFactoryForMatchEvents() {
+        Map<String, Object> configProps = new HashMap<>();
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.groupId);
+        configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "com.consumer.Consumer.DomainLayer.DTO.MatchEventPlayerDTOs,com.football.football.DomainLayer.DTO.MatchEventPlayerDTOs");
+        configProps.put(JsonDeserializer.TYPE_MAPPINGS, "com.football.football.DomainLayer.DTO.MatchEventPlayerDTOs.MatchEventPlayerDTO:com.consumer.Consumer.DomainLayer.DTO.MatchEventPlayerDTOs.MatchEventPlayerDTO");
+        configProps.put(JsonDeserializer.VALUE_DEFAULT_TYPE, MatchEventPlayerDTO.class.getName());
+        configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
+        return new DefaultKafkaConsumerFactory<>(configProps);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, MatchEventPlayerDTO> kafkaListenerContainerFactoryForMatchEvents() {
+        ConcurrentKafkaListenerContainerFactory<String, MatchEventPlayerDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactoryForMatchEvents());
         return factory;
     }
 }
