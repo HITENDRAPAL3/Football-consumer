@@ -1,4 +1,4 @@
-package com.consumer.Consumer.MatchCommentDTOs;
+package com.consumer.Consumer.DomainLayer.DTO.MatchCommentDTOs;
 
 import lombok.Getter;
 import lombok.Setter;
