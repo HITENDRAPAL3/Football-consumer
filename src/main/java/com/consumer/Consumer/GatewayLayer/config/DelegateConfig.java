@@ -1,6 +1,6 @@
 package com.consumer.Consumer.GatewayLayer.config;
 
-import com.consumer.Consumer.GatewayLayer.implementaion.IPushEventsDelegate;
+import com.consumer.Consumer.GatewayLayer.implementation.IPushEventsDelegate;
 import com.consumer.Consumer.GatewayLayer.implementation.PushEventsDelegate;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 public class DelegateConfig {
 
     @Bean
-    public IPushEventsDelegate pushEventsDelegate() {
+    public PushEventsDelegate pushEventsDelegate() {
         return new PushEventsDelegate();
     }
 

@@ -1,4 +1,4 @@
-package com.consumer.Consumer.GatewayLayer.implementaion;
+package com.consumer.Consumer.GatewayLayer.implementation;
 
 import com.consumer.Consumer.DomainLayer.DTO.MatchCommentDTOs.MatchCommentDTO;
 

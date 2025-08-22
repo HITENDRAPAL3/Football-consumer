@@ -15,15 +15,15 @@ import javax.inject.Inject;
 public class KafkaConsumerService {
 
     private final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
-//
-//    @Inject
-//    private PushEventsDelegate pushEventsDelegate;
+
+    @Inject
+    private PushEventsDelegate pushEventsDelegate;
 
     @KafkaListener(topics = AppConstants.topicName, groupId = AppConstants.groupId)
     public void consumeMessages(MatchCommentDTO value) {
         try {
             logger.info("Received message: {}", value);
-//            pushEventsDelegate.pushEvents(value);
+            pushEventsDelegate.pushEvents(value);
         } catch (Exception e) {
             logger.error("Error processing message: {}", e.getMessage(), e);
         }
