@@ -21,7 +21,7 @@ public class PushEventsDelegate implements IPushEventsDelegate {
 
     @Override
     public void pushEventsForMatchEvents(MatchEventPlayerDTO event) {
-        pushCommentsToCBStep.pushCommentsToCB(event);
+        pushCommentsToCBStep.pushEventsForMatchEvents(event);
     }
 
 }

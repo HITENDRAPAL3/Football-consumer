@@ -36,7 +36,7 @@ public class PushCommentsToCBStep {
         }
     }
 
-    public void pushCommentsToCB(MatchEventPlayerDTO matchEventPlayerDTO) {
+    public void pushEventsForMatchEvents(MatchEventPlayerDTO matchEventPlayerDTO) {
         try {
             commentRepositoryForMatchEventPlayer.save(matchEventPlayerMapper.map(matchEventPlayerDTO));
             logger.info("Event details saved successfully!!!");
