@@ -2,8 +2,8 @@ package com.consumer.Consumer.ServiceLayer.logic;
 
 import com.consumer.Consumer.DomainLayer.DTO.MatchCommentDTOs.MatchCommentDTO;
 import com.consumer.Consumer.DomainLayer.DTO.MatchEventPlayerDTOs.MatchEventPlayerDTO;
-import com.consumer.Consumer.PersistenceLayer.Couchbase.CommentRepositoryForMatchComment;
-import com.consumer.Consumer.PersistenceLayer.Couchbase.CommentRepositoryForMatchEventPlayer;
+import com.consumer.Consumer.PersistenceLayer.Couchbase.matchcomment.CommentRepositoryForMatchComment;
+import com.consumer.Consumer.PersistenceLayer.Couchbase.matchevent.CommentRepositoryForMatchEventPlayer;
 import com.consumer.Consumer.PersistenceLayer.mapper.IMatchCommentMapper;
 import com.consumer.Consumer.PersistenceLayer.mapper.IMatchEventPlayerMapper;
 import org.slf4j.Logger;
