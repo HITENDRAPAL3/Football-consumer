@@ -23,7 +23,7 @@ public class KafkaConsumerService {
             topics = AppConstants.TOPIC_NAME_FOR_MATCH_COMMENTS,
             groupId = AppConstants.groupId,
             containerFactory = "kafkaListenerContainerFactoryForMatchComments")
-    public void consumeMessages(MatchCommentDTO value) {
+    public void consumeMessagesForMatchComments(MatchCommentDTO value) {
         try {
             if (value == null) {
                 logger.warn("Received null message, skipping processing");
