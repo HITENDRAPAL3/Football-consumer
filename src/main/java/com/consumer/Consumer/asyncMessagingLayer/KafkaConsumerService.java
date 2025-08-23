@@ -19,9 +19,13 @@ public class KafkaConsumerService {
     @Inject
     private PushEventsDelegate pushEventsDelegate;
 
-    @KafkaListener(topics = AppConstants.topicName, groupId = AppConstants.groupId)
+    @KafkaListener(topics = AppConstants.TOPIC_NAME_FOR_MATCH_COMMENTS, groupId = AppConstants.groupId)
     public void consumeMessages(MatchCommentDTO value) {
         try {
+            if (value == null) {
+                logger.warn("Received null message, skipping processing");
+                return;
+            }
             logger.info("Received message: {}", value);
             pushEventsDelegate.pushEventsForMatchComments(value);
         } catch (Exception e) {
@@ -29,8 +33,13 @@ public class KafkaConsumerService {
         }
     }
 
-    public void consumeMessages(MatchEventPlayerDTO value) {
+    @KafkaListener(topics = AppConstants.TOPIC_NAME_FOR_MATCH_EVENTS, groupId = AppConstants.groupId)
+    public void consumeMessagesForMatchEvents(MatchEventPlayerDTO value) {
         try {
+            if (value == null) {
+                logger.warn("Received null message, skipping processing");
+                return;
+            }
             logger.info("Received message: {}", value);
             pushEventsDelegate.pushEventsForMatchEvents(value);
         } catch (Exception e) {
