@@ -19,7 +19,10 @@ public class KafkaConsumerService {
     @Inject
     private PushEventsDelegate pushEventsDelegate;
 
-    @KafkaListener(topics = AppConstants.TOPIC_NAME_FOR_MATCH_COMMENTS, groupId = AppConstants.groupId)
+    @KafkaListener(
+            topics = AppConstants.TOPIC_NAME_FOR_MATCH_COMMENTS,
+            groupId = AppConstants.groupId,
+            containerFactory = "kafkaListenerContainerFactoryForMatchComments")
     public void consumeMessages(MatchCommentDTO value) {
         try {
             if (value == null) {
@@ -33,7 +36,10 @@ public class KafkaConsumerService {
         }
     }
 
-    @KafkaListener(topics = AppConstants.TOPIC_NAME_FOR_MATCH_EVENTS, groupId = AppConstants.groupId)
+    @KafkaListener(
+            topics = AppConstants.TOPIC_NAME_FOR_MATCH_EVENTS,
+            groupId = AppConstants.groupId,
+            containerFactory = "kafkaListenerContainerFactoryForMatchEvents")
     public void consumeMessagesForMatchEvents(MatchEventPlayerDTO value) {
         try {
             if (value == null) {
