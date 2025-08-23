@@ -1,4 +1,4 @@
-package com.consumer.Consumer.PersistenceLayer.Couchbase;
+package com.consumer.Consumer.PersistenceLayer.Couchbase.matchcomment;
 
 import com.consumer.Consumer.PersistenceLayer.jpa.MatchCommentJPA;
 import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;

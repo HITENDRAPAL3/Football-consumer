@@ -1,4 +1,4 @@
-package com.consumer.Consumer.PersistenceLayer.Couchbase;
+package com.consumer.Consumer.PersistenceLayer.Couchbase.matchevent;
 
 import com.consumer.Consumer.PersistenceLayer.jpa.MatchEventPlayerJPA;
 import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;

@@ -11,9 +11,6 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.listener.DefaultErrorHandler;
-import com.consumer.Consumer.asyncMessagingLayer.CustomJsonDeserializer;
-import com.consumer.Consumer.asyncMessagingLayer.CustomMatchEventPlayerDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,20 +32,20 @@ public class KafkaConfig {
         configProps.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
         configProps.put(JsonDeserializer.REMOVE_TYPE_INFO_HEADERS, true);
 
-        return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(), 
-            new CustomJsonDeserializer());
+        return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(),
+                new CustomJsonDeserializer());
     }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, MatchCommentDTO> kafkaListenerContainerFactoryForMatchComments() {
         ConcurrentKafkaListenerContainerFactory<String, MatchCommentDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactoryForMatchComments());
-        
+
         // Configure error handling for deserialization errors
         factory.setCommonErrorHandler(new org.springframework.kafka.listener.DefaultErrorHandler() {
             @Override
-            public void handleOtherException(Exception thrownException, org.apache.kafka.clients.consumer.Consumer<?, ?> consumer, 
-                                           org.springframework.kafka.listener.MessageListenerContainer container, boolean batchListener) {
+            public void handleOtherException(Exception thrownException, org.apache.kafka.clients.consumer.Consumer<?, ?> consumer,
+                                             org.springframework.kafka.listener.MessageListenerContainer container, boolean batchListener) {
                 if (thrownException instanceof org.apache.kafka.common.errors.RecordDeserializationException) {
                     // Log the error and continue processing
                     System.err.println("Deserialization error: " + thrownException.getMessage());
@@ -58,7 +55,7 @@ public class KafkaConfig {
                 }
             }
         });
-        
+
         return factory;
     }
 
@@ -76,20 +73,20 @@ public class KafkaConfig {
         configProps.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
         configProps.put(JsonDeserializer.REMOVE_TYPE_INFO_HEADERS, true);
 
-        return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(), 
-            new CustomMatchEventPlayerDeserializer());
+        return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(),
+                new CustomMatchEventPlayerDeserializer());
     }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, MatchEventPlayerDTO> kafkaListenerContainerFactoryForMatchEvents() {
         ConcurrentKafkaListenerContainerFactory<String, MatchEventPlayerDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactoryForMatchEvents());
-        
+
         // Configure error handling for deserialization errors
         factory.setCommonErrorHandler(new org.springframework.kafka.listener.DefaultErrorHandler() {
             @Override
-            public void handleOtherException(Exception thrownException, org.apache.kafka.clients.consumer.Consumer<?, ?> consumer, 
-                                           org.springframework.kafka.listener.MessageListenerContainer container, boolean batchListener) {
+            public void handleOtherException(Exception thrownException, org.apache.kafka.clients.consumer.Consumer<?, ?> consumer,
+                                             org.springframework.kafka.listener.MessageListenerContainer container, boolean batchListener) {
                 if (thrownException instanceof org.apache.kafka.common.errors.RecordDeserializationException) {
                     // Log the error and continue processing
                     System.err.println("Deserialization error: " + thrownException.getMessage());
@@ -99,7 +96,7 @@ public class KafkaConfig {
                 }
             }
         });
-        
+
         return factory;
     }
 }
