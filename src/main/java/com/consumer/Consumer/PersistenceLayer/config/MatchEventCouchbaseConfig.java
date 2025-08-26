@@ -7,8 +7,7 @@ import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepos
 
 @Configuration
 @EnableCouchbaseRepositories(
-    basePackages = "com.consumer.Consumer.PersistenceLayer.Couchbase.matchevent",
-    couchbaseTemplateRef = "matchEventCouchbaseTemplate"
+    basePackages = "com.consumer.Consumer.PersistenceLayer.Couchbase.matchevent"
 )
 public class MatchEventCouchbaseConfig extends AbstractCouchbaseConfiguration {
 

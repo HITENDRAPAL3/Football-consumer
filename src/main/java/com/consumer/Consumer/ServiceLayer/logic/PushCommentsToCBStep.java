@@ -6,10 +6,13 @@ import com.consumer.Consumer.PersistenceLayer.Couchbase.matchcomment.CommentRepo
 import com.consumer.Consumer.PersistenceLayer.Couchbase.matchevent.CommentRepositoryForMatchEventPlayer;
 import com.consumer.Consumer.PersistenceLayer.mapper.IMatchCommentMapper;
 import com.consumer.Consumer.PersistenceLayer.mapper.IMatchEventPlayerMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import javax.inject.Inject;
+
 
 public class PushCommentsToCBStep {
 
@@ -25,12 +28,16 @@ public class PushCommentsToCBStep {
     @Inject
     private IMatchEventPlayerMapper matchEventPlayerMapper;
 
+    @Inject
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     Logger logger = LoggerFactory.getLogger(PushCommentsToCBStep.class);
 
     public void pushCommentsToCB(MatchCommentDTO matchCommentDTO) {
         try {
             commentRepositoryForMatchComment.save(MatchCommentMapper.map(matchCommentDTO));
             logger.info("Comment saved successfully!!!");
+            broadcastCommentsToUsers(matchCommentDTO);
         } catch (Exception e) {
             logger.error("Failed to persist on couchbase!!!");
         }
@@ -40,9 +47,18 @@ public class PushCommentsToCBStep {
         try {
             commentRepositoryForMatchEventPlayer.save(matchEventPlayerMapper.map(matchEventPlayerDTO));
             logger.info("Event details saved successfully!!!");
+            broadcastMatchEventsToUsers(matchEventPlayerDTO);
         } catch (Exception e) {
             logger.error("Failed to persist on couchbase!!!");
         }
+    }
+
+    private void broadcastCommentsToUsers(MatchCommentDTO matchCommentDTO) {
+        simpMessagingTemplate.convertAndSend("/topic/matchComments", matchCommentDTO);
+    }
+
+    private void broadcastMatchEventsToUsers(MatchEventPlayerDTO matchEventPlayerDTO) {
+        simpMessagingTemplate.convertAndSend("/topic/matchEvents", matchEventPlayerDTO);
     }
 
 }

@@ -7,8 +7,7 @@ import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepos
 
 @Configuration
 @EnableCouchbaseRepositories(
-    basePackages = "com.consumer.Consumer.PersistenceLayer.Couchbase.matchcomment",
-    couchbaseTemplateRef = "matchCommentCouchbaseTemplate"
+    basePackages = "com.consumer.Consumer.PersistenceLayer.Couchbase.matchcomment"
 )
 public class MatchCommentCouchbaseConfig extends AbstractCouchbaseConfiguration {
 
