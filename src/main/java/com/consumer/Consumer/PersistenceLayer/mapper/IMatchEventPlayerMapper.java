@@ -22,13 +22,6 @@ public interface IMatchEventPlayerMapper {
      * @return the JPA entity
      */
     @Mapping(target = "timestamp", source = "timestamp", qualifiedByName = "stringToLocalDateTime")
-    @Mapping(target = "teamId", source = "team.id")
-    @Mapping(target = "teamName", source = "team.name")
-    @Mapping(target = "playerId", source = "player.id")
-    @Mapping(target = "playerName", source = "player.name")
-    @Mapping(target = "playerPosition", source = "player.position")
-    @Mapping(target = "substitutionFor", source = "additionalInfo.substitutionFor")
-    @Mapping(target = "substitutionType", source = "additionalInfo.substitutionType")
     MatchEventPlayerJPA map(MatchEventPlayerDTO dto);
 
     /**
@@ -37,13 +30,6 @@ public interface IMatchEventPlayerMapper {
      * @return the DTO
      */
     @Mapping(target = "timestamp", source = "timestamp", qualifiedByName = "localDateTimeToString")
-    @Mapping(target = "team.id", source = "teamId")
-    @Mapping(target = "team.name", source = "teamName")
-    @Mapping(target = "player.id", source = "playerId")
-    @Mapping(target = "player.name", source = "playerName")
-    @Mapping(target = "player.position", source = "playerPosition")
-    @Mapping(target = "additionalInfo.substitutionFor", source = "substitutionFor")
-    @Mapping(target = "additionalInfo.substitutionType", source = "substitutionType")
     MatchEventPlayerDTO toDTO(MatchEventPlayerJPA entity);
 
     /**
@@ -74,12 +60,11 @@ public interface IMatchEventPlayerMapper {
             }
         }
 
-        // If all formatters fail, try parsing as epoch milliseconds
+        // Try parsing as epoch milliseconds
         try {
             long epochMilli = Long.parseLong(timestampStr);
             return LocalDateTime.ofEpochSecond(epochMilli / 1000, 0, java.time.ZoneOffset.UTC);
         } catch (NumberFormatException e) {
-            // If all parsing attempts fail, return current time
             return LocalDateTime.now();
         }
     }

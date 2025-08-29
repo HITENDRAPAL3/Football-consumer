@@ -27,28 +27,16 @@ public class MatchEventPlayerJPA {
     @Field("eventType")
     private String eventType;
 
-    @Field("teamId")
-    private String teamId;
+    @Field("team")
+    private String team;
 
-    @Field("teamName")
-    private String teamName;
-
-    @Field("playerId")
-    private String playerId;
-
-    @Field("playerName")
-    private String playerName;
-
-    @Field("playerPosition")
-    private String playerPosition;
+    @Field("player")
+    private String player;
 
     @Field("description")
     private String description;
 
-    @Field("substitutionFor")
-    private String substitutionFor;
-
-    @Field("substitutionType")
-    private String substitutionType;
+    @Field("additionalInfo")
+    private String additionalInfo;
 
 }
